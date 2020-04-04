@@ -1,11 +1,12 @@
 {
   "name": "mongo",
   "connector": "mongodb",
-  "url": "mongodb://localhost:27023",
+  "url": "mongodb://localhost:27023/rpgmgs",
   "host": "localhost",
   "port": 27023,
   "user": "",
   "password": "",
   "database": "rpgmgs",
-  "useNewUrlParser": true
+  "useNewUrlParser": true,
+  "debug": true
 }
