@@ -13,7 +13,7 @@ export class BrazucasController {
   }
 
   @get('/info/brazucas')
-  async contaRpg(): Promise<Brazucas | null> {
+  async brazucas(): Promise<Brazucas | null> {
     return this.brazucasRepository.findOne({where: {__UID: "brazucas"}});
   }
 }

@@ -1,5 +1,5 @@
 import { Count, CountSchema, Filter, FilterExcludingWhere, repository, Where, } from '@loopback/repository';
-import { get, getModelSchemaRef, param, } from '@loopback/rest';
+import { get, getModelSchemaRef, HttpErrors, param } from '@loopback/rest';
 import { Casas } from '../models';
 import { CasasRepository } from '../repositories';
 import { service } from "@loopback/core";
@@ -64,7 +64,12 @@ export class CasaController {
     @param.path.string('id') id: string,
     @param.filter(Casas, {exclude: 'where'}) filter?: FilterExcludingWhere<Casas>
   ): Promise<Partial<Casas>> {
-    const casa = await this.casasRepository.findById(id, filter);
+    const casa = await this.casasRepository.findOne({where: {__UID: id}}, filter);
+
+    if (!casa) {
+      throw new HttpErrors.NotFound("Casa não encontrada");
+    }
+
     return this.casaProvider.publico(casa);
   }
 }
