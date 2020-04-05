@@ -1,6 +1,6 @@
 import {Entity, model, property} from '@loopback/repository';
 
-@model({settings: {strict: false}})
+@model({settings: {strict: false}, name: "brazucas"})
 export class Brazucas extends Entity {
   // Define well-known properties here
 

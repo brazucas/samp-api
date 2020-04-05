@@ -1,8 +1,12 @@
 import {Entity, model, property} from '@loopback/repository';
 
-@model({settings: {strict: false}})
+@model({settings: {strict: false}, name: "casas"})
 export class Casas extends Entity {
   // Define well-known properties here
+
+  static variaveisPublicas = [
+    "__UID", "px", "py", "pz", "pa", "AV", "Especial", "Proprietario", "Referencia", "ValorOriginal", "ValorDeVenda", "Vila", "Interior"
+  ];
 
   @property({
     type: 'number',

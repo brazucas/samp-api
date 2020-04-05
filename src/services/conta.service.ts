@@ -6,7 +6,6 @@ export type Conta = ContaProvider;
 
 @bind({scope: BindingScope.TRANSIENT})
 export class ContaProvider implements Provider<Conta> {
-
   constructor() {
   }
 

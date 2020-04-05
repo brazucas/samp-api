@@ -6,7 +6,6 @@
 import { inject } from "@loopback/context";
 import { get, HttpErrors, param, Request, RestBindings } from "@loopback/rest";
 import { repository } from "@loopback/repository";
-import { ContasMgsRepository } from "../repositories";
 import { ContasRpgRepository } from "../repositories/contas-rpg.repository";
 import { ContasRpg } from "../models";
 import { service } from "@loopback/core";
@@ -14,7 +13,6 @@ import { ContaProvider } from "../services";
 
 export class ContaController {
   constructor(@inject(RestBindings.Http.REQUEST) private req: Request,
-              @repository(ContasMgsRepository) public contasMgsRepository: ContasMgsRepository,
               @repository(ContasRpgRepository) public contasRpgRepository: ContasRpgRepository,
               @service(ContaProvider) public contaProvider: ContaProvider) {
   }
