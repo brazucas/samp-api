@@ -1,7 +1,7 @@
 {
   "name": "mongo",
   "connector": "mongodb",
-  "url": "mongodb://localhost:27023/rpgmgs",
+  "url": "A configuração é alterada no application.ts",
   "host": "localhost",
   "port": 27023,
   "user": "",

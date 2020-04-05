@@ -1,14 +1,11 @@
-import {BootMixin} from '@loopback/boot';
-import {ApplicationConfig} from '@loopback/core';
-import {
-  RestExplorerBindings,
-  RestExplorerComponent,
-} from '@loopback/rest-explorer';
-import {RepositoryMixin} from '@loopback/repository';
-import {RestApplication} from '@loopback/rest';
-import {ServiceMixin} from '@loopback/service-proxy';
+import { BootMixin } from '@loopback/boot';
+import { ApplicationConfig } from '@loopback/core';
+import { RestExplorerBindings, RestExplorerComponent, } from '@loopback/rest-explorer';
+import { RepositoryMixin } from '@loopback/repository';
+import { RestApplication } from '@loopback/rest';
+import { ServiceMixin } from '@loopback/service-proxy';
 import path from 'path';
-import {MySequence} from './sequence';
+import { MySequence } from './sequence';
 
 export class ApiApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
@@ -18,6 +15,19 @@ export class ApiApplication extends BootMixin(
 
     // Set up the custom sequence
     this.sequence(MySequence);
+
+    this.bind('datasources.config.mongo').to({
+      name: "mongo",
+      connector: "mongodb",
+      url: process.env.MONGODB_URL,
+      host: "localhost",
+      port: 27023,
+      user: "",
+      password: "",
+      database: "rpgmgs",
+      useNewUrlParser: true,
+      debug: true
+    });
 
     // Set up default home page
     this.static('/', path.join(__dirname, '../public'));
