@@ -1,9 +1,12 @@
-import {Entity, model, property} from '@loopback/repository';
+import { Entity, model, property } from '@loopback/repository';
 
 @model({settings: {strict: false}, name: "propriedades"})
 export class Propriedades extends Entity {
-  // Define well-known properties here
+  static variaveisPublicas = [
+    "__UID", "px", "py", "pz", "pa", "PropriedadeAVenda", "Proprietario", "NaVila", "Tipo", "PropriedadeAtiva", "NomeDaPropriedade"
+  ];
 
+  // Define well-known properties here
   @property({
     type: 'number',
     generated: true,
@@ -309,7 +312,7 @@ export class Propriedades extends Entity {
   })
   NaVila?: number;
 
-    // Indexer property to allow additional data
+  // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
 

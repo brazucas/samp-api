@@ -1,5 +1,5 @@
 import { bind, BindingScope, Provider } from '@loopback/core';
-import { ContasRpg } from "../models";
+import { ContasMgs, ContasRpg } from "../models";
 import { mapObject } from "../helpers/common";
 
 export type Conta = ContaProvider;
@@ -14,7 +14,11 @@ export class ContaProvider implements Provider<Conta> {
     return this;
   }
 
-  contaPublica(contaRpg: ContasRpg): Partial<ContasRpg> {
-    return mapObject(contaRpg, ContasRpg.variaveisPublicas);
+  contaRpgPublica(contaRpg: ContasRpg): Partial<ContasRpg> {
+    return mapObject<ContasRpg>(contaRpg, ContasRpg.variaveisPublicas);
+  }
+
+  contaMgsPublica(contaMgs: ContasMgs): Partial<ContasMgs> {
+    return mapObject<ContasMgs>(contaMgs, ContasMgs.variaveisPublicas);
   }
 }

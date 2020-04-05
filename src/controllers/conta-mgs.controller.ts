@@ -2,11 +2,13 @@ import { Count, CountSchema, Filter, FilterExcludingWhere, repository, Where, } 
 import { get, getModelSchemaRef, HttpErrors, param, } from '@loopback/rest';
 import { ContasMgs } from '../models';
 import { ContasMgsRepository } from '../repositories';
+import { ContaProvider } from "../services";
+import { service } from "@loopback/core";
 
 export class ContaMgsController {
   constructor(
-    @repository(ContasMgsRepository)
-    public contasMgsRepository: ContasMgsRepository,
+    @repository(ContasMgsRepository) public contasMgsRepository: ContasMgsRepository,
+    @service(ContaProvider) public contaProvider: ContaProvider,
   ) {
   }
 
@@ -41,8 +43,9 @@ export class ContaMgsController {
   })
   async find(
     @param.filter(ContasMgs) filter?: Filter<ContasMgs>,
-  ): Promise<ContasMgs[]> {
-    return this.contasMgsRepository.find(filter);
+  ): Promise<Partial<ContasMgs>[]> {
+    const contas = await this.contasMgsRepository.find(filter);
+    return contas.map(casa => this.contaProvider.contaMgsPublica(casa));
   }
 
   @get('/contas-mgs/{id}', {
@@ -60,13 +63,13 @@ export class ContaMgsController {
   async findById(
     @param.path.string('id') id: string,
     @param.filter(ContasMgs, {exclude: 'where'}) filter?: FilterExcludingWhere<ContasMgs>
-  ): Promise<ContasMgs> {
+  ): Promise<Partial<ContasMgs>> {
     const conta = await this.contasMgsRepository.findOne({where: {__UID: id}}, filter);
 
     if (!conta) {
       throw new HttpErrors.NotFound("Conta não encontrada");
     }
 
-    return conta;
+    return this.contaProvider.contaMgsPublica(conta);
   }
 }

@@ -2,11 +2,13 @@ import { Count, CountSchema, Filter, FilterExcludingWhere, repository, Where, } 
 import { get, getModelSchemaRef, HttpErrors, param, } from '@loopback/rest';
 import { Propriedades } from '../models';
 import { PropriedadesRepository } from '../repositories';
+import { PropriedadeProvider } from "../services";
+import { service } from "@loopback/core";
 
 export class PropriedadesController {
   constructor(
-    @repository(PropriedadesRepository)
-    public propriedadesRepository: PropriedadesRepository,
+    @repository(PropriedadesRepository) public propriedadesRepository: PropriedadesRepository,
+    @service(PropriedadeProvider) public propriedadeProvider: PropriedadeProvider,
   ) {
   }
 
@@ -41,8 +43,9 @@ export class PropriedadesController {
   })
   async find(
     @param.filter(Propriedades) filter?: Filter<Propriedades>,
-  ): Promise<Propriedades[]> {
-    return this.propriedadesRepository.find(filter);
+  ): Promise<Partial<Propriedades>[]> {
+    const propriedades = await this.propriedadesRepository.find(filter);
+    return propriedades.map(propriedade => this.propriedadeProvider.publico(propriedade));
   }
 
   @get('/propriedades/{id}', {
@@ -60,13 +63,13 @@ export class PropriedadesController {
   async findById(
     @param.path.string('id') id: string,
     @param.filter(Propriedades, {exclude: 'where'}) filter?: FilterExcludingWhere<Propriedades>
-  ): Promise<Propriedades> {
+  ): Promise<Partial<Propriedades>> {
     const propriedade = await this.propriedadesRepository.findOne({where: {__UID: id}}, filter);
 
     if (!propriedade) {
       throw new HttpErrors.NotFound("Propriedade não encontrada");
     }
 
-    return propriedade;
+    return this.propriedadeProvider.publico(propriedade);
   }
 }

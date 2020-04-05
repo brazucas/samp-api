@@ -1,7 +1,11 @@
-import {Entity, model, property} from '@loopback/repository';
+import { Entity, model, property } from '@loopback/repository';
 
 @model({settings: {strict: false}, name: "contas_mgs"})
 export class ContasMgs extends Entity {
+  static variaveisPublicas = [
+    "__UID", "UltimoLogin", "Pontos", "Matou", "Morreu", "TempoConectado", "PROEZAS", "MelhorDoMinigame", "Assistencias"
+  ];
+
   @property({
     type: 'number',
     generated: true,

@@ -21,6 +21,6 @@ export class CasaProvider implements Provider<Casa> {
   }
 
   publico(casa: Casas): Partial<Casas> {
-    return mapObject(casa, Casas.variaveisPublicas);
+    return mapObject<Casas>(casa, Casas.variaveisPublicas);
   }
 }
