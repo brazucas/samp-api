@@ -1,7 +1,7 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "API para os aplicativos do Brazuca&#39;s ",
+  "description": "API do servidor de SA-MP do Brazuca's",
   "keywords": [
     "loopback-application",
     "loopback"
@@ -46,6 +46,7 @@
     "!*/__tests__"
   ],
   "dependencies": {
+    "@loopback/authentication": "^4.1.1",
     "@loopback/boot": "^2.0.2",
     "@loopback/context": "^3.2.0",
     "@loopback/core": "^2.2.0",

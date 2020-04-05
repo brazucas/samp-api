@@ -2,6 +2,11 @@ import { Entity, model, property } from '@loopback/repository';
 
 @model({settings: {strict: false}, name: "contas_rpg"})
 export class ContasRpg extends Entity {
+  static variaveisPublicas = [
+    "__UID", "Skin", "Profissao", "Estilo", "Familia", "Experiencia", "Mortos", "SaudeTotal",
+    "DataNascimento", "Sexo", "UltimoLogin", "TempoConectado", "Inativo", "Moderador", "Banido", "VezesPreso"
+  ];
+
   @property({
     type: 'number',
     generated: true,
