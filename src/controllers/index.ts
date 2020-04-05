@@ -9,3 +9,4 @@ export * from './recordes.controller';
 export * from './casa.controller';
 export * from './conta-rpg.controller';
 export * from './conta-mgs.controller';
+export * from './veiculo.controller';

@@ -8,3 +8,4 @@ export * from './impostos.model';
 export * from './configs.model';
 export * from './casas.model';
 export * from './brazucas.model';
+export * from './veiculos.model';

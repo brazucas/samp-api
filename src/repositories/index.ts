@@ -7,3 +7,4 @@ export * from './precos.repository';
 export * from './profissoes.repository';
 export * from './propriedades.repository';
 export * from './recordes.repository';
+export * from './veiculos.repository';
