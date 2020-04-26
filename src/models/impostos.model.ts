@@ -1,168 +1,235 @@
 import {Entity, model, property} from '@loopback/repository';
 
-@model({settings: {strict: false}, name: "impostos"})
+@model({settings: {idInjection: false, mysql: {schema: 'UCP_PROD', table: 'impostos'}}})
 export class Impostos extends Entity {
-  // Define well-known properties here
-
   @property({
     type: 'number',
-    generated: true,
     required: true,
-    id: true,
+    precision: 10,
+    scale: 0,
+    id: 1,
+    mysql: {columnName: 'ID', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
-  _id: string;
+  id: number;
 
   @property({
     type: 'string',
-    generated: false,
-    required: true,
+    length: 50,
+    mysql: {columnName: 'DiaDoIPTU', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  __UID: string;
+  diaDoIptu?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'DiaDoSeguro', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  DiaDoIPTU: number;
+  diaDoSeguro?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'DiaDoPlanoDeSaude', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  DiaDoSeguro: number;
+  diaDoPlanoDeSaude?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'DiaDoEmprestimo', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  DiaDoPlanoDeSaude: number;
+  diaDoEmprestimo?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'DiaDoCartao', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  DiaDoEmprestimo: number;
+  diaDoCartao?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'DiaDoIPVA', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  DiaDoCartao: number;
+  diaDoIpva?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'DiaDoIR', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  DiaDoIPVA: number;
+  diaDoIr?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'HoraDoIR', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  DiaDoIR: number;
+  horaDoIr?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'HoraDoIPTU', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  HoraDoIR: number;
+  horaDoIptu?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'HoraDoSeguro', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  HoraDoIPTU: number;
+  horaDoSeguro?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'HoraDoPlanoDeSaude', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  HoraDoSeguro: number;
+  horaDoPlanoDeSaude?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'HoraDoEmprestimo', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  HoraDoPlanoDeSaude: number;
+  horaDoEmprestimo?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'HoraDoCartao', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  HoraDoEmprestimo: number;
+  horaDoCartao?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'HoraDoIPVA', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  HoraDoCartao: number;
+  horaDoIpva?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'IPVA', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  HoraDoIPVA: number;
+  ipva?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'IPTU', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  IPVA: number;
+  iptu?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'IR_PJ', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  IPTU: number;
+  irPj?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'IR_PF', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  IR_PJ: number;
+  irPf?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'SEGURO_VEICULOS', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  IR_PF: number;
+  seguroVeiculos?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'SEGURO_PROPRIEDADES', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  SEGURO_VEICULOS: number;
+  seguroPropriedades?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'PLANO_DE_SAUDE', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  SEGURO_PROPRIEDADES: number;
+  planoDeSaude?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'TRATAMENTO_MEDICO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  PLANO_DE_SAUDE: number;
+  tratamentoMedico?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'TARIFA_AUTOTAXI', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  TRATAMENTO_MEDICO: number;
+  tarifaAutotaxi?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'TARIFA_DEPOSITO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  TARIFA_AUTOTAXI: number;
+  tarifaDeposito?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'CARTAO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  TARIFA_DEPOSITO: number;
+  cartao?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'MULTAS_TRANSITO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  CARTAO: number;
+  multasTransito?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'TAXA_HOTEL', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  MULTAS_TRANSITO: number;
+  taxaHotel?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'PREMIO_PARK', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  TAXA_HOTEL: number;
+  premioPark?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'EXTRA', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  PREMIO_PARK: number;
+  extra?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'LICENSA_TAXI', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  EXTRA: number;
+  licensaTaxi?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'HoraDoImposto', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  horaDoImposto?: string;
+
+  // Define well-known properties here
 
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

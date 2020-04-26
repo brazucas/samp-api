@@ -9,7 +9,7 @@ export class ImpostosRepository extends DefaultCrudRepository<
   ImpostosRelations
 > {
   constructor(
-    @inject('datasources.mongo') dataSource: MongoDataSource,
+    @inject('datasources.mysql') dataSource: MongoDataSource,
   ) {
     super(Impostos, dataSource);
   }

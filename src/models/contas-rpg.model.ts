@@ -1,1714 +1,2067 @@
-import { Entity, model, property } from '@loopback/repository';
+import {Entity, model, property} from '@loopback/repository';
 
-@model({settings: {strict: false}, name: "contas_rpg"})
+@model({
+  settings: {idInjection: false, mysql: {schema: 'UCP_PROD', table: 'contas_rpg'}}
+})
 export class ContasRpg extends Entity {
   static variaveisPublicas = [
-    "__UID", "Skin", "Profissao", "Estilo", "Familia", "Experiencia", "Mortos", "SaudeTotal",
-    "DataNascimento", "Sexo", "UltimoLogin", "TempoConectado", "Inativo", "Moderador", "Banido", "VezesPreso"
+    "__UID", "skin", "profissao", "estilo", "familia", "experiencia", "mortos", "saudeTotal",
+    "dataNascimento", "sexo", "ultimoLogin", "tempoConectado", "inativo", "moderador", "banido", "vezesPreso"
   ];
 
   @property({
     type: 'number',
-    generated: true,
     required: true,
-    id: true,
+    precision: 10,
+    scale: 0,
+    id: 1,
+    mysql: {columnName: 'ID', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
-  _id: string;
+  id: number;
+
+  @property({
+    type: 'date',
+    mysql: {columnName: 'ULTIMA_ATUALIZACAO', dataType: 'timestamp', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  ultimaAtualizacao?: string;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'TRAVADO', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
+  })
+  travado?: number;
 
   @property({
     type: 'string',
-    generated: false,
     required: true,
+    length: 45,
+    mysql: {columnName: 'NICK', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
-  __UID: string;
+  nick: string;
 
   @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'Administrador', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
+  })
+  administrador?: number;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'IP', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  ip?: string;
+
+  @property({
+    type: 'string',
+    length: 45,
+    mysql: {columnName: 'CONVITE', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  convite?: string;
+
+  @property({
+    type: 'string',
+    length: 40,
+    mysql: {columnName: 'PAGINA_ATUAL', dataType: 'varchar', dataLength: 40, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  paginaAtual?: string;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'TENTATIVAS_LOGIN', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
+  })
+  tentativasLogin?: number;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'ÿSenha', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  senha?: string;
+
+  @property({
+    type: 'string',
+    length: 45,
+    mysql: {columnName: 'EMAIL', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  email?: string;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'VEICULOS_ENCOMENDADOS', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
+  })
+  veiculosEncomendados?: number;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'EXCLUIR_CONTA', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
+  })
+  excluirConta?: number;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'EXCLUIR_CONTA_TEMPO', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
+  })
+  excluirContaTempo?: number;
+
+  @property({
+    type: 'string',
+    length: 45,
+    mysql: {columnName: 'FORUM_USER', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  forumUser?: string;
+
+  @property({
+    type: 'string',
+    length: 45,
+    mysql: {columnName: 'FORUM_SENHA', dataType: 'varchar', dataLength: 45, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  forumSenha?: string;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'FORUM_ATIVO', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
+  })
+  forumAtivo?: number;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Sx', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  sx?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Sy', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  sy?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Sz', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  sz?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Sa', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  sa?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Interior', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  interior?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'VirtualWorld', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  virtualWorld?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Skin', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  skin?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'CasaAtiva', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  casaAtiva?: string;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'ContaBancaria', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
+  })
+  contaBancaria?: number;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'DinheiroEmMaos', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
+  })
+  dinheiroEmMaos?: number;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Profissao', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  profissao?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Estilo', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  estilo?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'HT', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  ht?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'HN', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  hn?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'HA', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  ha?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Preso', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  preso?: string;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'Divida', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
+  })
+  divida?: number;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'NivelDrogas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  nivelDrogas?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'NivelAlcool', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  nivelAlcool?: string;
+
+  @property({
     type: 'string',
-    generated: false,
-    required: true,
+    length: 50,
+    mysql: {columnName: 'NivelProcurado', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Senha: string;
+  nivelProcurado?: string;
 
   @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'Familia', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
+  })
+  familia?: number;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'CPN', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  cpn?: string;
+
+  @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'CPNu', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Sx: number;
+  cpNu?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'CPM', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Sy: number;
+  cpm?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'CPMu', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Sz: number;
+  cpMu?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'CPB', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  cpb?: string;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'Experiencia', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
   })
-  Sa: number;
+  experiencia?: number;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ArmasLicensa', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Interior: number;
+  armasLicensa?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Mortos', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  VirtualWorld: number;
+  mortos?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Painel', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Skin: number;
+  painel?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Velocimetro', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  CasaAtiva: number;
+  velocimetro?: string;
 
   @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'TempoPreso', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
+  })
+  tempoPreso?: number;
+
+  @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Marcado', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ContaBancaria: number;
+  marcado?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'PlanoDeSaude', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  DinheiroEmMaos: number;
+  planoDeSaude?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'TmpProxMud', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Profissao: number;
+  tmpProxMud?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'PodeMalhar', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Estilo: number;
+  podeMalhar?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'TempoMalhando', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  HT: number;
+  tempoMalhando?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExperienciaAnterior', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  HN: number;
+  experienciaAnterior?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'SemanaSalarioRecebido', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  HA: number;
+  semanaSalarioRecebido?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's1armas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Preso: number;
+  s1armas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's1balas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Divida: number;
+  s1balas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's2armas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  NivelDrogas: number;
+  s2armas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's2balas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  NivelAlcool: number;
+  s2balas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's3armas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  NivelProcurado: number;
+  s3armas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's3balas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Familia: string;
+  s3balas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's4armas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  CPN: number;
+  s4armas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's4balas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  CPNu: number;
+  s4balas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's5armas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  CPM: number;
+  s5armas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's5balas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  CPMu: number;
+  s5balas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's6armas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  CPB: number;
+  s6armas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's6balas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Experiencia: number;
+  s6balas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's7armas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ArmasLicensa: number;
+  s7armas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's7balas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Mortos: number;
+  s7balas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's8armas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Painel: number;
+  s8armas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's8balas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Velocimetro: number;
+  s8balas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's9armas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  TempoPreso: number;
+  s9armas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's9balas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Marcado: number;
+  s9balas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's10armas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  PlanoDeSaude: number;
+  s10armas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's10balas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  TmpProxMud: number;
+  s10balas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's11armas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  PodeMalhar: number;
+  s11armas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's11balas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  TempoMalhando: number;
+  s11balas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's12armas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ExperienciaAnterior: number;
+  s12armas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's12balas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  SemanaSalarioRecebido: number;
+  s12balas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's13armas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s1armas: number;
+  s13armas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's13balas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s1balas: number;
+  s13balas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's14armas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s2armas: number;
+  s14armas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's14balas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s2balas: number;
+  s14balas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'PropriedadeEmQueTrabalha', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  propriedadeEmQueTrabalha?: string;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'SaudeTotal', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
   })
-  s3armas: number;
+  saudeTotal?: number;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Cor1', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s3balas: number;
+  cor1?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Cor2', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s4armas: number;
+  cor2?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Cor3', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s4balas: number;
+  cor3?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Cor4', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s5armas: number;
+  cor4?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Cor5', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s5balas: number;
+  cor5?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'DataNascimento', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s6armas: number;
+  dataNascimento?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Sexo', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s6balas: number;
+  sexo?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Bloqueada', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s7armas: number;
+  bloqueada?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Impostos', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s7balas: number;
+  impostos?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'SemanaIRRecolhido', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s8armas: number;
+  semanaIrRecolhido?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'SemanaPlanoSaude', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s8balas: number;
+  semanaPlanoSaude?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'SemanaEmprestimo', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s9armas: number;
+  semanaEmprestimo?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'SemanaCartao', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s9balas: number;
+  semanaCartao?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Taxas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s10armas: number;
+  taxas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'SemanaTaxaHotel', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s10balas: number;
+  semanaTaxaHotel?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'UltimoLogin', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s11armas: number;
+  ultimoLogin?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'TempoVerificacao', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s11balas: number;
+  tempoVerificacao?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Bilhete', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s12armas: number;
+  bilhete?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ForcaFisica', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  forcaFisica?: string;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'TempoConectado', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
   })
-  s12balas: number;
+  tempoConectado?: number;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'NivelBoxe', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s13armas: number;
+  nivelBoxe?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'NivelStreet', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s13balas: number;
+  nivelStreet?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'NivelKarate', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s14armas: number;
+  nivelKarate?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'IscasParaPesca', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s14balas: number;
+  iscasParaPesca?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Fome', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  fome?: string;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'Respeito', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
   })
-  PropriedadeEmQueTrabalha: number;
+  respeito?: number;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Ui', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  SaudeTotal: number;
+  ui?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Uv', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Cor1: number;
+  uv?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'UxS', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Cor2: number;
+  uxS?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'UyS', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Cor3: number;
+  uyS?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'UzS', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Cor4: number;
+  uzS?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'TempoAcordado', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Cor5: number;
+  tempoAcordado?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Camuflagem', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  DataNascimento: string;
+  camuflagem?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'XpDiaria', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Sexo: number;
+  xpDiaria?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Algemado', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Camuflagem: number;
+  algemado?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Atum', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Bloqueada: number;
+  atum?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Bagre', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  IP: number;
+  bagre?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Cavala', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Impostos: number;
+  cavala?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Dourado', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  SemanaIRRecolhido: number;
+  dourado?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Garoupa', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  SemanaPlanoSaude: number;
+  garoupa?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Tainha', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  SemanaEmprestimo: number;
+  tainha?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'JogadorAutorizado', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  SemanaCartao: number;
+  jogadorAutorizado?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's0armas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Taxas: number;
+  s0armas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 's0balas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  SemanaTaxaHotel: number;
+  s0balas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Colete', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  UltimoLogin: string;
+  colete?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Dinamites', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  UltimoLoginTs: number;
+  dinamites?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Flashes', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Desejo: number;
+  flashes?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Teaser', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  teaser?: string;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'Fortuna', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
   })
-  TempoVerificacao: number;
+  fortuna?: number;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ProcuradoEx', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Bilhete: number;
+  procuradoEx?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Desejo', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ForcaFisica: number;
+  desejo?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ProfissaoAnterior', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  TempoConectado: number;
+  profissaoAnterior?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Alvo', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  NivelBoxe: number;
+  alvo?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Andar', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  NivelStreet: number;
+  andar?: string;
 
   @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'Salario', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
+  })
+  salario?: number;
+
+  @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'MudouDeProfs', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  NivelKarate: number;
+  mudouDeProfs?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Gerente', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  IscasParaPesca: number;
+  gerente?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Juros', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  juros?: string;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'Creditos', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
   })
-  Fome: number;
+  creditos?: number;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Celular', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Respeito: number;
+  celular?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'NumeroCelular', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Ui: number;
+  numeroCelular?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Chat', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Uv: number;
+  chat?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'CelularCapa', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  UxS: number;
+  celularCapa?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Multas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  UyS: number;
+  multas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Balao', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  UzS: number;
+  balao?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'TempoPena', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  TempoAcordado: number;
+  tempoPena?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'TempoPenaTotal', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  XpDiaria: number;
+  tempoPenaTotal?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Julgado', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Trabalhos: number;
+  julgado?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Chapeu', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  PresoNoDeposito: number;
+  chapeu?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Mascara', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Algemado: number;
+  mascara?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Oculos', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Atum: number;
+  oculos?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Capacete', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Bagre: number;
+  capacete?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'UsandoChapeu', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Cavala: number;
+  usandoChapeu?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'UsandoOculos', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Dourado: number;
+  usandoOculos?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'UsandoMascara', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Garoupa: number;
+  usandoMascara?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'OculosOffsetX', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Tainha: number;
+  oculosOffsetX?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'OculosOffsetY', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  JogadorAutorizado: number;
+  oculosOffsetY?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'OculosOffsetZ', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s0armas: number;
+  oculosOffsetZ?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'OculosRotX', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  s0balas: number;
+  oculosRotX?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'OculosRotY', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Colete: number;
+  oculosRotY?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'OculosRotZ', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Dinamites: number;
+  oculosRotZ?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'OculosScaleX', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Flashes: number;
+  oculosScaleX?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'OculosScaleY', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Teaser: number;
+  oculosScaleY?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'OculosScaleZ', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Fortuna: number;
+  oculosScaleZ?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ChapeuOffsetX', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ProcuradoEx: number;
+  chapeuOffsetX?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ChapeuOffsetY', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  AssaltoCasa: number;
+  chapeuOffsetY?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ChapeuOffsetZ', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Moderador: number;
+  chapeuOffsetZ?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ChapeuRotX', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Chat: number;
+  chapeuRotX?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ChapeuRotY', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Entregas: number;
+  chapeuRotY?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ChapeuRotZ', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ExpDesempregado: number;
+  chapeuRotZ?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ChapeuScaleX', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  MudouDeFamilia: number;
+  chapeuScaleX?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ChapeuScaleY', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  MudouDeProfs: number;
+  chapeuScaleY?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ChapeuScaleZ', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ProfissaoAnterior: number;
+  chapeuScaleZ?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'MascaraOffsetX', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ExpLixeiro: number;
+  mascaraOffsetX?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'MascaraOffsetY', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Celular: number;
+  mascaraOffsetY?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'MascaraOffsetZ', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  NumeroCelular: number;
+  mascaraOffsetZ?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'MascaraRotX', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Infracoes: number;
+  mascaraRotX?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'MascaraRotY', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Salario: number;
+  mascaraRotY?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'MascaraRotZ', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Gerente: number;
+  mascaraRotZ?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'MascaraScaleX', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Chapeu: number;
+  mascaraScaleX?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'MascaraScaleY', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Capacete: number;
+  mascaraScaleY?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'MascaraScaleZ', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Oculos: number;
+  mascaraScaleZ?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'NivelPesca', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Clinica: number;
+  nivelPesca?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Infracoes', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ValorVeiculos: number;
+  infracoes?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpPolicialFederal', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ExpVendedorCarros: number;
+  expPolicialFederal?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpAdvogado', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Multas: number;
+  expAdvogado?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Assaltante', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Juros: number;
+  assaltante?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'VezesPreso', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Alvo: number;
+  vezesPreso?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'DataMorte', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ExpCorretor: number;
+  dataMorte?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Morto', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ValorImoveis: number;
+  morto?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpMecanico', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  WEAPONSKILL_MP5: number;
+  expMecanico?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ValorImoveis', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  WEAPONSKILL_MICRO_UZI: number;
+  valorImoveis?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ValorVeiculos', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  WEAPONSKILL_DESERT_EAGLE: number;
+  valorVeiculos?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpCaminhoneiro', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  WEAPONSKILL_SPAS12_SHOTGUN: number;
+  expCaminhoneiro?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Hotel', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  WEAPONSKILL_M4: number;
+  hotel?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'MudouDeFamilia', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Laptop: number;
+  mudouDeFamilia?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Entregas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ExpMotoristaPub: number;
+  entregas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Moderador', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  NivelPesca: number;
+  moderador?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Clinica', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  VezesPreso: number;
+  clinica?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Patins', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  TempoPena: number;
+  patins?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Mudo', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  TempoPenaTotal: number;
+  mudo?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Banido', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Assaltante: number;
+  banido?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'MotivoBan', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Julgado: number;
+  motivoBan?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'IPBanido', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  SemanaEmpregado: number;
+  ipBanido?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Laptop', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  PodeMarcar: number;
+  laptop?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'VaraDePesca', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ExpInvestigador: number;
+  varaDePesca?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'WEAPONSKILL_MICRO_UZI', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  SalarioDisponivel: number;
+  weaponskillMicroUzi?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'WEAPONSKILL_SHOTGUN', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ParticipMGS: number;
+  weaponskillShotgun?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'WEAPONSKILL_DESERT_EAGLE', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Terrorista: number;
+  weaponskillDesertEagle?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'WEAPONSKILL_M4', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ExpVendedorArmas: number;
+  weaponskillM4?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'WEAPONSKILL_PISTOL_SILENCED', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Creditos: number;
+  weaponskillPistolSilenced?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'WEAPONSKILL_MP5', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  RecebeuEmprestimo: number;
+  weaponskillMp5?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Advertencias', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  RecebeuSeguro: number;
+  advertencias?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Transparencia', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  RecebeuTaxaHotel: number;
+  transparencia?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'WEAPONSKILL_PISTOL', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  DiariasProp: number;
+  weaponskillPistol?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Relogio', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  AcumuladoProp: number;
+  relogio?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Aplicacoes', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  RecebeuIR: number;
+  aplicacoes?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpJornalista', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  RecebeuCartao: number;
+  expJornalista?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'WEAPONSKILL_SPAS12_SHOTGUN', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  RecebeuDeposito: number;
+  weaponskillSpas12Shotgun?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Herdeiro', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  RecebeuIPVA: number;
+  herdeiro?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpHacker', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  RecebeuIPTU: number;
+  expHacker?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'SalarioDisponivel', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  RecebeuPlanoSaude: number;
+  salarioDisponivel?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'TempoDesmanche', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  DoenteTipo: number;
+  tempoDesmanche?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Terrorista', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  DoenteTempo: number;
+  terrorista?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpTraficante', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  SemanaDeposito: number;
+  expTraficante?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpAssassino', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  VitimasDM: number;
+  expAssassino?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'PresoNoDeposito', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  BilheteSimples1: number;
+  presoNoDeposito?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpInvestigador', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  BilheteSimples2: number;
+  expInvestigador?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Fake', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  BilheteEspecial1: number;
+  fake?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'WEAPONSKILL_SAWNOFF_SHOTGUN', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  BilheteEspecial2: number;
+  weaponskillSawnoffShotgun?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'WEAPONSKILL_AK47', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  BilheteEspecial3: number;
+  weaponskillAk47?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'WEAPONSKILL_SNIPERRIFLE', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  BilheteEspecial4: number;
+  weaponskillSniperrifle?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'PodeMarcar', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Sede: number;
+  podeMarcar?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpAgricultor', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Quentinhas: number;
+  expAgricultor?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpPolicialCivil', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Garrafas: number;
+  expPolicialCivil?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'M4', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  SaudeSalva: number;
+  m4?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'PericiaM4', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Maconha: number;
+  periciaM4?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'PericiaMP5', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Crack: number;
+  periciaMp5?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'TransparenciaV', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Cocaina: number;
+  transparenciaV?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'CartaoDebito', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Anabolizante: number;
+  cartaoDebito?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'BancoCartao', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Arrebite: number;
+  bancoCartao?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Saude', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Drogado: number;
+  saude?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Trabalhos', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  DrogadoQtdade: number;
+  trabalhos?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpEnfermeiro', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Drogas: number;
+  expEnfermeiro?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'HDFile', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  GanhoDiario: number;
+  hdFile?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Garra', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  TrabalhouRecentemente: number;
+  garra?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Admin', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  LimiteBancoTempo: number;
+  admin?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'SemanaEmpregado', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  LimiteBancoDeposito: number;
+  semanaEmpregado?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Dividas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  QtdadeDepositos: number;
+  dividas?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExperienciaCorregedoria', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  SemanaVacina: number;
+  experienciaCorregedoria?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Casamento', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  MembroAtivo: number;
+  casamento?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'EstadoCivil', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Previdencia: number;
+  estadoCivil?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExperienciaMafia', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ExpTotalPub: number;
+  experienciaMafia?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Fiancavel', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  LimiteBancoSaque: number;
+  fiancavel?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpMotoristaPub', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  USMembroAtivo: number;
+  expMotoristaPub?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpJuiz', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  AtingidoRecentemente: number;
+  expJuiz?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpDesempregado', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  MarcadoAleatorioQtdade: number;
+  expDesempregado?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpTaxista', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  MarcadoAleatorio: number;
+  expTaxista?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpDetran', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  OffLevelFamilia: number;
+  expDetran?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpPiloto', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  TempoLiberarDM: number;
+  expPiloto?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpCoveiro', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  SemanaPoupanca: number;
+  expCoveiro?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpPizzaboy', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  RecebeuPoupanca: number;
+  expPizzaboy?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpPrefeito', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  DiaDoGanhoDiario: number;
+  expPrefeito?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpLixeiro', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  GanhoDiarioDomingo: number;
+  expLixeiro?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpCamelo', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  GanhoDiarioSegunda: number;
+  expCamelo?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpSeguranca', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  GanhoDiarioTerca: number;
+  expSeguranca?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpFrentista', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  GanhoDiarioQuarta: number;
+  expFrentista?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpBancario', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  GanhoDiarioQuinta: number;
+  expBancario?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpInstrutor', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  GanhoDiarioSexta: number;
+  expInstrutor?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpMotoristaPart', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  SemanaDoGanhoDiario: number;
+  expMotoristaPart?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpBombeiro', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ExpMecanico: number;
+  expBombeiro?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpPromoter', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  TempoLiberarProcurado: number;
+  expPromoter?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'UltimoLoginTs', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  DeslogouTS: number;
+  ultimoLoginTs?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ForçaFisica', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  MarcadoDM: number;
+  forAFisica?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpVendedorArmas', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  expVendedorArmas?: string;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'WC_BLOQUEADO', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
   })
-  WEAPONSKILL_PISTOL: number;
+  wcBloqueado?: number;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ExpVendedorCarros', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  WEAPONSKILL_SHOTGUN: number;
+  expVendedorCarros?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Moderacao', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  WEAPONSKILL_SAWNOFF_SHOTGUN: number;
+  moderacao?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'Saúde', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  WEAPONSKILL_AK47: number;
+  saDe?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'ToqueCelular', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  WEAPONSKILL_SNIPERRIFLE: number;
+  toqueCelular?: string;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'NOME', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  nome?: string;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'DJ', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
   })
-  Ferido: number;
+  dj?: number;
 
   @property({
     type: 'string',
-    generated: false,
-    required: false,
+    length: 50,
+    mysql: {columnName: 'CriouFamilia', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Inativo: number;
+  criouFamilia?: string;
 
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'BanidoPor', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  banidoPor?: string;
 
   // Define well-known properties here
 

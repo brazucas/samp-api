@@ -9,7 +9,7 @@ export class ProfissoesRepository extends DefaultCrudRepository<
   ProfissoesRelations
 > {
   constructor(
-    @inject('datasources.mongo') dataSource: MongoDataSource,
+    @inject('datasources.mysql') dataSource: MongoDataSource,
   ) {
     super(Profissoes, dataSource);
   }

@@ -7,7 +7,7 @@ export class ContasRpgRepository extends DefaultCrudRepository<ContasRpg,
   typeof ContasRpg.prototype.___UID,
   ContasRpgRelations> {
   constructor(
-    @inject('datasources.mongo') dataSource: MongoDataSource,
+    @inject('datasources.mysql') dataSource: MongoDataSource,
   ) {
     super(ContasRpg, dataSource);
   }

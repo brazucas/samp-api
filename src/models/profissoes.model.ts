@@ -1,203 +1,272 @@
 import {Entity, model, property} from '@loopback/repository';
 
-@model({settings: {strict: false}, name: "profissoes"})
+@model({
+  settings: {idInjection: false, mysql: {schema: 'UCP_PROD', table: 'profissoes'}}
+})
 export class Profissoes extends Entity {
-  // Define well-known properties here
-
   @property({
     type: 'number',
-    generated: true,
     required: true,
-    id: true,
+    precision: 10,
+    scale: 0,
+    id: 1,
+    mysql: {columnName: 'ID', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
-  _id: string;
+  id: number;
 
   @property({
     type: 'string',
-    generated: false,
-    required: true,
+    length: 50,
+    mysql: {columnName: 'DESEMPREGADO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  __UID: string;
+  desempregado?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'TAXISTA', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  DESEMPREGADO?: number;
+  taxista?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'VENDEDOR_CARROS', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  TAXISTA?: number;
+  vendedorCarros?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'CORRETOR', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  VENDEDOR_CARROS?: number;
+  corretor?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'ASSASSINO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  CORRETOR?: number;
+  assassino?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'PROMOTER', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ASSASSINO?: number;
+  promoter?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'JUIZ', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  PROMOTER?: number;
+  juiz?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'SEGURANÇA', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  JUIZ?: number;
+  seguranA?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'MOTORISTA_PARTICULAR', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  SEGURANÇA?: number;
+  motoristaParticular?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'POLICIAL_CIVIL', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  MOTORISTA_PARTICULAR?: number;
+  policialCivil?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'DETRAN', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  POLICIAL_CIVIL?: number;
+  detran?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'POLICIAL_FEDERAL', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  DETRAN?: number;
+  policialFederal?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'CAMELO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  POLICIAL_FEDERAL?: number;
+  camelo?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'ADVOGADO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  CAMELO?: number;
+  advogado?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'INSTRUTOR', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ADVOGADO?: number;
+  instrutor?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'COVEIRO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  INSTRUTOR?: number;
+  coveiro?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'PILOTO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  COVEIRO?: number;
+  piloto?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'JORNALISTA', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  PILOTO?: number;
+  jornalista?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'ENFERMEIRO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  JORNALISTA?: number;
+  enfermeiro?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'BOMBEIRO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  ENFERMEIRO?: number;
+  bombeiro?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'PIZZABOY', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  BOMBEIRO?: number;
+  pizzaboy?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'TRAFICANTE', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  PIZZABOY?: number;
+  traficante?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'LIXEIRO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  TRAFICANTE?: number;
+  lixeiro?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'FRENTISTA', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  LIXEIRO?: number;
+  frentista?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'LOCADOR_CARROS', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  FRENTISTA?: number;
+  locadorCarros?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'VENDEDOR_ARMAS', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  LOCADOR_CARROS?: number;
+  vendedorArmas?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'MECANICO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  VENDEDOR_ARMAS?: number;
+  mecanico?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'BANCARIO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  MECANICO?: number;
+  bancario?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'INVESTIGADOR', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  BANCARIO?: number;
+  investigador?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'MOTORISTA_PUBLICO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  INVESTIGADOR?: number;
+  motoristaPublico?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'HACKER', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  MOTORISTA_PUBLICO?: number;
+  hacker?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'CAMINHONEIRO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  HACKER?: number;
+  caminhoneiro?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'AGRICULTOR', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  CAMINHONEIRO?: number;
+  agricultor?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'CORREGEDORIA', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  AGRICULTOR?: number;
+  corregedoria?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'PREFEITO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  CORREGEDORIA?: number;
+  prefeito?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'MAFIA', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  PREFEITO?: number;
+  mafia?: string;
 
-  @property({
-    type: 'number',
-  })
-  MAFIA?: number;
+  // Define well-known properties here
 
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

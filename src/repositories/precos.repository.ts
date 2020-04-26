@@ -9,7 +9,7 @@ export class PrecosRepository extends DefaultCrudRepository<
   PrecosRelations
 > {
   constructor(
-    @inject('datasources.mongo') dataSource: MongoDataSource,
+    @inject('datasources.mysql') dataSource: MongoDataSource,
   ) {
     super(Precos, dataSource);
   }

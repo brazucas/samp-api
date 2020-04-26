@@ -9,7 +9,7 @@ export class ContasMgsRepository extends DefaultCrudRepository<
   ContasMgsRelations
 > {
   constructor(
-    @inject('datasources.mongo') dataSource: MongoDataSource,
+    @inject('datasources.mysql') dataSource: MongoDataSource,
   ) {
     super(ContasMgs, dataSource);
   }

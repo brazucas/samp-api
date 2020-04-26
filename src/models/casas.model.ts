@@ -1,202 +1,390 @@
 import {Entity, model, property} from '@loopback/repository';
 
-@model({settings: {strict: false}, name: "casas"})
+@model({settings: {idInjection: false, mysql: {schema: 'UCP_PROD', table: 'casas'}}})
 export class Casas extends Entity {
-  // Define well-known properties here
-
   static variaveisPublicas = [
-    "__UID", "px", "py", "pz", "pa", "AV", "Especial", "Proprietario", "Referencia", "ValorOriginal", "ValorDeVenda", "Vila", "Interior"
+    "__UID", "px", "py", "pz", "pa", "av", "especial", "proprietario", "referencia", "valorOriginal", "valorDeVenda", "vila", "interior"
   ];
 
   @property({
     type: 'number',
-    generated: true,
     required: true,
-    id: true,
+    precision: 10,
+    scale: 0,
+    id: 1,
+    mysql: {columnName: 'ID', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
-  _id: string;
+  id: number;
 
   @property({
-    type: 'string',
-    generated: false,
+    type: 'number',
     required: true,
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'ULTIMA_ATUALIZACAO', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
-  __UID: string;
+  ultimaAtualizacao: number;
 
   @property({
     type: 'number',
+    required: true,
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'NUMERO', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
-  px: number;
-
-  @property({
-    type: 'number',
-  })
-  py: number;
-
-  @property({
-    type: 'number',
-  })
-  pz: number;
-
-  @property({
-    type: 'number',
-  })
-  pa: number;
-
-  @property({
-    type: 'number',
-  })
-  AV: number;
-
-  @property({
-    type: 'number',
-  })
-  Especial: number;
+  numero: number;
 
   @property({
     type: 'string',
+    length: 50,
+    mysql: {columnName: 'px', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Proprietario: string;
+  px?: string;
 
   @property({
     type: 'string',
+    length: 50,
+    mysql: {columnName: 'py', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Referencia: string;
-
-  @property({
-    type: 'number',
-  })
-  ValorOriginal: number;
-
-  @property({
-    type: 'number',
-  })
-  ValorDeVenda: number;
-
-  @property({
-    type: 'number',
-  })
-  Vila: number;
+  py?: string;
 
   @property({
     type: 'string',
+    length: 50,
+    mysql: {columnName: 'pz', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Chave1: string;
+  pz?: string;
 
   @property({
     type: 'string',
+    length: 50,
+    mysql: {columnName: 'pa', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Chave2: string;
+  pa?: string;
 
   @property({
     type: 'string',
+    length: 50,
+    mysql: {columnName: 'AV', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Chave3: string;
+  av?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Proprietario', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Saidax: number;
+  proprietario?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Referencia', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Saiday: number;
+  referencia?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'ValorOriginal', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Saidaz: number;
+  valorOriginal?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'ValorDeVenda', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Saidaa: number;
+  valorDeVenda?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Chave1', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  PortaEntradax: number;
+  chave1?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Chave2', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  PortaEntraday: number;
+  chave2?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Chave3', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  PortaEntradaz: number;
+  chave3?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Saidax', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Entradax: number;
+  saidax?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Saiday', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Entraday: number;
+  saiday?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Saidaz', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Entradaz: number;
+  saidaz?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Saidaa', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  PortaSaidax: number;
+  saidaa?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'PortaEntradax', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  PortaSaiday: number;
+  portaEntradax?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'PortaEntraday', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  PortaSaidaz: number;
+  portaEntraday?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'PortaEntradaz', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Interior: number;
+  portaEntradaz?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'VirtualWorld', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Entradaa: number;
+  virtualWorld?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Entradax', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  VirtualWorld: number;
+  entradax?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Entraday', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  CasaDaPropriedade: number;
+  entraday?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Entradaz', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Arma_Slot_5: number;
+  entradaz?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Entradaa', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Balas_Slot_5: number;
+  entradaa?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'PortaSaidax', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  Trancada: number;
+  portaSaidax?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'PortaSaiday', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  CompradoImobiliaria: number;
+  portaSaiday?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'PortaSaidaz', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  portaSaidaz?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Interior', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  interior?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'ComInterior', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  comInterior?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Skin_1', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  skin_1?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Trancada', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  trancada?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Prancha', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  prancha?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Especial', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  especial?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Vila', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  vila?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'CasaDaPropriedade', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  casaDaPropriedade?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Dinheiro', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  dinheiro?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Arma_Slot_5', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  armaSlot_5?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Balas_Slot_5', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  balasSlot_5?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Arma_Slot_4', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  armaSlot_4?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Balas_Slot_4', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  balasSlot_4?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Arma_Slot_3', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  armaSlot_3?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Balas_Slot_3', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  balasSlot_3?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Arma_Slot_2', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  armaSlot_2?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Balas_Slot_2', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  balasSlot_2?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Skin_5', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  skin_5?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Skin_4', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  skin_4?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Arma_Slot_1', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  armaSlot_1?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Balas_Slot_1', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  balasSlot_1?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Skin_3', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  skin_3?: string;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mysql: {columnName: 'Skin_2', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+  })
+  skin_2?: string;
+
+  // Define well-known properties here
 
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

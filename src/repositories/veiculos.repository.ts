@@ -9,7 +9,7 @@ export class VeiculosRepository extends DefaultCrudRepository<
   VeiculosRelations
 > {
   constructor(
-    @inject('datasources.mongo') dataSource: MongoDataSource,
+    @inject('datasources.mysql') dataSource: MongoDataSource,
   ) {
     super(Veiculos, dataSource);
   }

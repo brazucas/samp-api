@@ -9,7 +9,7 @@ export class BrazucasRepository extends DefaultCrudRepository<
   BrazucasRelations
 > {
   constructor(
-    @inject('datasources.mongo') dataSource: MongoDataSource,
+    @inject('datasources.mysql') dataSource: MongoDataSource,
   ) {
     super(Brazucas, dataSource);
   }

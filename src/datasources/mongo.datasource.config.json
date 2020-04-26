@@ -1,12 +1,13 @@
 {
   "name": "mongo",
   "connector": "mongodb",
-  "url": "A configuração é alterada no application.ts",
+  "url": "mongodb://localhost:27023/rpgmgs?authSource=admin&readPreference=primary&ssl=false",
   "host": "localhost",
   "port": 27023,
   "user": "",
   "password": "",
   "database": "rpgmgs",
   "useNewUrlParser": true,
-  "debug": true
+  "debug": true,
+  "useUnifiedTopology": true,
 }

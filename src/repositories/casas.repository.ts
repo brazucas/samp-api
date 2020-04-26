@@ -9,7 +9,7 @@ export class CasasRepository extends DefaultCrudRepository<
   CasasRelations
 > {
   constructor(
-    @inject('datasources.mongo') dataSource: MongoDataSource,
+    @inject('datasources.mysql') dataSource: MongoDataSource,
   ) {
     super(Casas, dataSource);
   }

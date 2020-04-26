@@ -9,7 +9,7 @@ export class ConfigsRepository extends DefaultCrudRepository<
   ConfigsRelations
 > {
   constructor(
-    @inject('datasources.mongo') dataSource: MongoDataSource,
+    @inject('datasources.mysql') dataSource: MongoDataSource,
   ) {
     super(Configs, dataSource);
   }
