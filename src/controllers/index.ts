@@ -1,5 +1,5 @@
 export * from './login.controller';
-export * from './brazucas.controller';
+export * from './info.controller';
 export * from './configs.controller';
 export * from './impostos.controller';
 export * from './precos.controller';
