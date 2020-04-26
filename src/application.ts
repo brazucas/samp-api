@@ -29,6 +29,19 @@ export class ApiApplication extends BootMixin(
       debug: true
     });
 
+    this.bind('datasources.config.mysql').to({
+      name: "mysql",
+      connector: "mysql",
+      url: process.env.MYSQL_URL,
+      host: process.env.MYSQL_HOST,
+      port: process.env.MYSQL_PORT,
+      user: process.env.MYSQL_USER,
+      password: process.env.MYSQL_PASSWORD,
+      database: process.env.MYSQL_DATABASE,
+      useNewUrlParser: true,
+      debug: true
+    });
+
     // Set up default home page
     this.static('/', path.join(__dirname, '../public'));
 
