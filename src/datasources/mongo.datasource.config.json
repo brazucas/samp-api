@@ -9,5 +9,5 @@
   "database": "rpgmgs",
   "useNewUrlParser": true,
   "debug": true,
-  "useUnifiedTopology": true,
+  "useUnifiedTopology": true
 }
