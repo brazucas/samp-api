@@ -72,4 +72,24 @@ export class ContaMgsController {
 
     return this.contaProvider.contaMgsPublica(conta);
   }
+
+  @get('/contas-mgs/ranking-short', {
+    responses: {
+      '200': {
+        description: 'ContasMgs model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(ContasMgs, {includeRelations: true}),
+          },
+        },
+      },
+    },
+  })
+  async rankingShort(
+    @param.filter(ContasMgs, {exclude: 'where'}) filter?: FilterExcludingWhere<ContasMgs>
+  ): Promise<Partial<ContasMgs>> {
+    const ranking = await this.contasMgsRepository.find({order: ['pontos desc'], limit: 3}, filter);
+
+    return ranking.map(conta => this.contaProvider.contaMgsPublica(conta));
+  }
 }

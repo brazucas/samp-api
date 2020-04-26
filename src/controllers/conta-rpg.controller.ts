@@ -1,6 +1,6 @@
 import { Count, CountSchema, Filter, FilterExcludingWhere, repository, Where, } from '@loopback/repository';
 import { get, getModelSchemaRef, HttpErrors, param } from '@loopback/rest';
-import { ContasRpg } from '../models';
+import { ContasMgs, ContasRpg } from '../models';
 import { ContasRpgRepository } from "../repositories/contas-rpg.repository";
 import { ContaProvider } from "../services";
 import { service } from "@loopback/core";
@@ -71,5 +71,25 @@ export class ContaRpgController {
     }
 
     return this.contaProvider.contaRpgPublica(conta);
+  }
+
+  @get('/contas-rpg/ranking-short', {
+    responses: {
+      '200': {
+        description: 'ContasRpg model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(ContasMgs, {includeRelations: true}),
+          },
+        },
+      },
+    },
+  })
+  async rankingShort(
+    @param.filter(ContasMgs, {exclude: 'where'}) filter?: FilterExcludingWhere<ContasMgs>
+  ): Promise<Partial<ContasMgs>> {
+    const ranking = await this.contasRpgRepository.find({order: ['fortuna desc'], limit: 3}, filter);
+
+    return ranking.map(conta => this.contaProvider.contaRpgPublica(conta));
   }
 }

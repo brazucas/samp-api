@@ -5,7 +5,7 @@ import {Entity, model, property} from '@loopback/repository';
 })
 export class ContasMgs extends Entity {
   static variaveisPublicas = [
-    "__UID", "ultimoLogin", "pontos", "matou", "morreu", "tempoConectado", "proezas", "melhorDoMinigame", "assistencias"
+    "__UID", "nome", "ultimoLogin", "pontos", "matou", "morreu", "tempoConectado", "proezas", "melhorDoMinigame", "assistencias"
   ];
 
   @property({
