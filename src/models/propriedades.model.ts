@@ -5,7 +5,7 @@ import {Entity, model, property} from '@loopback/repository';
 })
 export class Propriedades extends Entity {
   static variaveisPublicas = [
-    "__UID", "px", "py", "pz", "pa", "propriedadeAVenda", "proprietario", "navila", "tipo", "propriedadeAtiva", "nomeDaPropriedade"
+    "__UID", "numero", "especial", "valorDaPropriedade", "px", "py", "pz", "pa", "propriedadeAVenda", "proprietario", "navila", "tipo", "propriedadeAtiva", "nomeDaPropriedade"
   ];
 
   @property({

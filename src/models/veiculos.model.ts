@@ -3,7 +3,7 @@ import { Entity, model, property } from '@loopback/repository';
 @model({settings: {idInjection: false, mysql: {schema: 'UCP_PROD', table: 'veiculos'}}})
 export class Veiculos extends Entity {
   static variaveisPublicas = [
-    "__UID", "sx", "sy", "sz", "sa", "propriedade", "dono", "modelo", "cor1", "cor2", "valor", "valorOriginal"
+    "__UID", "placa", "especial", "sx", "sy", "sz", "sa", "propriedade", "dono", "modelo", "cor1", "cor2", "valor", "valorOriginal"
   ];
 
   @property({
