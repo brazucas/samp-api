@@ -5,7 +5,13 @@ import { RepositoryMixin } from '@loopback/repository';
 import { RestApplication } from '@loopback/rest';
 import { ServiceMixin } from '@loopback/service-proxy';
 import path from 'path';
-import { MySequence } from './sequence';
+import { JwtAuthenticationSequence } from './sequence';
+import { AuthenticationComponent, registerAuthenticationStrategy } from "@loopback/authentication";
+import { JWTAuthenticationStrategy } from "./authentication-strategies/jwt-strategy";
+import { PasswordHasherBindings, TokenServiceBindings, TokenServiceConstants, UserServiceBindings } from "./keys";
+import { JWTService } from "./services/jwt-service";
+import { BcryptHasher } from "./services/hash.password.bcryptjs";
+import { BrzUserService } from "./services/user.service";
 
 export class ApiApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
@@ -14,7 +20,14 @@ export class ApiApplication extends BootMixin(
     super(options);
 
     // Set up the custom sequence
-    this.sequence(MySequence);
+    // this.sequence(MySequence);
+    this.sequence(JwtAuthenticationSequence);
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    registerAuthenticationStrategy(this, JWTAuthenticationStrategy);
+
+    this.setUpBindings();
 
     this.bind('datasources.config.mongo').to({
       name: "mongo",
@@ -42,6 +55,8 @@ export class ApiApplication extends BootMixin(
       debug: true
     });
 
+    this.component(AuthenticationComponent);
+
     // Set up default home page
     this.static('/', path.join(__dirname, '../public'));
 
@@ -61,5 +76,24 @@ export class ApiApplication extends BootMixin(
         nested: true,
       },
     };
+  }
+
+  setUpBindings(): void {
+    // ...
+
+    this.bind(TokenServiceBindings.TOKEN_SECRET).to(
+      TokenServiceConstants.TOKEN_SECRET_VALUE,
+    );
+
+    this.bind(TokenServiceBindings.TOKEN_EXPIRES_IN).to(
+      TokenServiceConstants.TOKEN_EXPIRES_IN_VALUE,
+    );
+
+    this.bind(TokenServiceBindings.TOKEN_SERVICE).toClass(JWTService);
+
+    this.bind(PasswordHasherBindings.ROUNDS).to(10);
+    this.bind(PasswordHasherBindings.PASSWORD_HASHER).toClass(BcryptHasher);
+
+    this.bind(UserServiceBindings.USER_SERVICE).toClass(BrzUserService);
   }
 }

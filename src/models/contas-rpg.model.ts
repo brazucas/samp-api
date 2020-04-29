@@ -81,9 +81,9 @@ export class ContasRpg extends Entity {
   @property({
     type: 'string',
     length: 50,
-    mysql: {columnName: 'ÿSenha', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+    mysql: {columnName: 'Senha', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  senha?: string;
+  senha: string;
 
   @property({
     type: 'string',

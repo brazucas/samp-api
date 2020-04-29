@@ -4,29 +4,33 @@
 
 
 import { inject } from "@loopback/context";
-import { HttpErrors, post, Request, requestBody, RestBindings } from "@loopback/rest";
-import { repository } from "@loopback/repository";
-import { ContasMgsRepository } from "../repositories";
-import { ContasRpgRepository } from "../repositories/contas-rpg.repository";
+import { post, Request, requestBody, RestBindings } from "@loopback/rest";
+import { Credentials } from "../services";
+import { PasswordHasherBindings, TokenServiceBindings, UserServiceBindings } from "../keys";
+import { TokenService, UserService } from "@loopback/authentication";
+import { ContasRpg } from "../models";
+import { PasswordHasher } from "../services/hash.password.bcryptjs";
 
 export class LoginController {
   constructor(@inject(RestBindings.Http.REQUEST) private req: Request,
-              @repository(ContasMgsRepository) public contasMgsRepository: ContasMgsRepository,
-              @repository(ContasRpgRepository) public contasRpgRepository: ContasRpgRepository) {
+              @inject(UserServiceBindings.USER_SERVICE) public userService: UserService<ContasRpg, Credentials>,
+              @inject(PasswordHasherBindings.PASSWORD_HASHER) public passwordHasher: PasswordHasher,
+              @inject(TokenServiceBindings.TOKEN_SERVICE) public jwtService: TokenService) {
   }
 
   @post('/login')
-  async login(@requestBody() payload: {
-    nickname: string,
-    password: string,
-  }): Promise<null> {
-    const contaMgs = await this.contasMgsRepository.findOne({where: {__UID: payload.nickname}});
-    const contaRpg = await this.contasRpgRepository.findOne({where: {__UID: payload.nickname}});
+  async login(
+    @requestBody() credentials: Credentials,
+  ): Promise<{ token: string }> {
+    // ensure the user exists, and the password is correct
+    const user = await this.userService.verifyCredentials(credentials);
 
-    if (!((contaMgs && contaMgs.Senha === payload.password) || (contaRpg && contaRpg.Senha === payload.password))) {
-      throw new HttpErrors.Forbidden("Usuário e/ou senha inválidos");
-    }
+    // convert a User object into a UserProfile object (reduced set of properties)
+    const userProfile = this.userService.convertToUserProfile(user);
 
-    return null;
+    // create a JSON Web Token based on the user profile
+    const token = await this.jwtService.generateToken(userProfile);
+
+    return {token};
   }
 }

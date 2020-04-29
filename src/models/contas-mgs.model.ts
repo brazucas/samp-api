@@ -37,7 +37,7 @@ export class ContasMgs extends Entity {
     length: 50,
     mysql: {columnName: 'Senha', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
-  senha?: string;
+  senha: string;
 
   @property({
     type: 'number',
