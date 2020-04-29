@@ -61,7 +61,7 @@ export class BrzUserService implements UserService<ContasRpg, Credentials> {
 
   convertToUserProfile(user: ContasRpg): UserProfile {
     // since first name and lastName are optional, no error is thrown if not provided
-    const userName = user.nome;
+    const userName = user.nick;
 
     return {
       [securityId]: userName + '',
