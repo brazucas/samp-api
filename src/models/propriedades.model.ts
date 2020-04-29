@@ -21,7 +21,7 @@ export class Propriedades extends Entity {
   @property({
     type: 'string',
     length: 50,
-    mysql: {columnName: 'ÿULTIMA_ATUALIZACAO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+    mysql: {columnName: 'ULTIMA_ATUALIZACAO', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
   ultimaAtualizacao?: string;
 
@@ -37,7 +37,7 @@ export class Propriedades extends Entity {
   @property({
     type: 'string',
     length: 50,
-    mysql: {columnName: 'ÿpx', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
+    mysql: {columnName: 'px', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y'},
   })
   px?: string;
 
