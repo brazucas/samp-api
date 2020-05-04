@@ -37,7 +37,7 @@ export async function radioMonitor(app: ApiApplication) {
     // Handle wildcard events
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     feed.on('*', (event: any, data: any, raw: any) => {
-      console.log('>>>>>> event ', event, data, raw);
+      // console.log('>>>>>> event ', event, data, raw);
     });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
