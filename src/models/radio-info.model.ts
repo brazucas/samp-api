@@ -1,18 +1,18 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model({
-  settings: {idInjection: false, mysql: {schema: 'UCP_PROD', table: 'RADIO_INFO'}}
+  settings: {idInjection: false, mysql: {schema: 'UCP_PROD', table: 'RADIO_INFOS'}}
 })
 export class RadioInfo extends Entity {
   @property({
     type: 'number',
-    required: true,
+    required: false,
     precision: 10,
     scale: 0,
     id: 1,
     mysql: {columnName: 'ID', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
-  id: number;
+  id?: number;
 
   @property({
     type: 'string',
