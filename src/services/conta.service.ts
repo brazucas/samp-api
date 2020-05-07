@@ -32,33 +32,4 @@ export class ContaProvider implements Provider<Conta> {
   contaMgsPublica(contaMgs: ContasMgs): Partial<ContasMgs> {
     return mapObject<ContasMgs>(contaMgs, ContasMgs.variaveisPublicas);
   }
-
-  async verifyCredentials(credentials: Credentials): Promise<ContasRpg> {
-    const foundUser = await this.contasRpgRepository.findOne({
-      where: {nome: credentials.nick},
-    });
-
-    if (!foundUser) {
-      throw new HttpErrors.NotFound(
-        `User with nick ${credentials.nick} not found.`,
-      );
-    }
-    const passwordMatched = await this.passwordHasher.comparePassword(
-      credentials.password,
-      foundUser.password,
-    );
-
-    if (!passwordMatched) {
-      throw new HttpErrors.Unauthorized('The credentials are not correct.');
-    }
-
-    return foundUser;
-  }
-
-  convertToUserProfile(user: ContasRpg) {
-    // since first name and lastName are optional, no error is thrown if not provided
-    let userName = '';
-    if (user.firstName) userName = `${user.nome}`;
-    return {id: user.id, name: userName};
-  }
 }

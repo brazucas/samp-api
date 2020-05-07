@@ -10,8 +10,8 @@ import { ContasRpg } from './models';
 import { Credentials } from "./services";
 
 export namespace TokenServiceConstants {
-  export const TOKEN_SECRET_VALUE = 'myjwts3cr3t';
-  export const TOKEN_EXPIRES_IN_VALUE = '600';
+  export const TOKEN_SECRET_VALUE = process.env.JWT_SECRET ?? 'changeme';
+  export const TOKEN_EXPIRES_IN_VALUE = process.env.JWT_EXPIRE_IN ?? '600';
 }
 
 export namespace TokenServiceBindings {

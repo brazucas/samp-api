@@ -1,13 +1,17 @@
 import { Count, CountSchema, Filter, FilterExcludingWhere, repository, Where, } from '@loopback/repository';
 import { get, getModelSchemaRef, HttpErrors, param, } from '@loopback/rest';
 import { ContasMgs } from '../models';
-import { ContasMgsRepository } from '../repositories';
+import { ContasMgsRepository, PartidasRepository } from '../repositories';
 import { ContaProvider } from "../services";
 import { service } from "@loopback/core";
+import { authenticate } from "@loopback/authentication";
+import { inject } from "@loopback/context";
+import { SecurityBindings, UserProfile } from '@loopback/security';
 
 export class ContaMgsController {
   constructor(
     @repository(ContasMgsRepository) public contasMgsRepository: ContasMgsRepository,
+    @repository(PartidasRepository) public partidasRepository: PartidasRepository,
     @service(ContaProvider) public contaProvider: ContaProvider,
   ) {
   }
@@ -91,5 +95,50 @@ export class ContaMgsController {
     const ranking = await this.contasMgsRepository.find({order: ['pontos desc'], limit: 3}, filter);
 
     return ranking.map(conta => this.contaProvider.contaMgsPublica(conta));
+  }
+
+  @get('/contas-mgs/minhas-partidas', {
+    responses: {
+      '200': {
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(ContasMgs, {includeRelations: true}),
+          },
+        },
+      },
+    },
+  })
+  @authenticate('jwt')
+  async minhasPartidas(
+    @inject(SecurityBindings.USER) currentUser: UserProfile,
+    @param.filter(ContasMgs, {exclude: 'where'}) filter?: FilterExcludingWhere<ContasMgs>,
+  ): Promise<Partial<ContasMgs>> {
+    return this.partidasRepository.find({
+      where: {nick: currentUser.name},
+      order: ['id desc'],
+      limit: filter?.limit ?? 10,
+      offset: filter?.offset ?? 0,
+    }, filter);
+  }
+
+  @get('/contas-mgs/minhas-partidas/count', {
+    responses: {
+      '200': {
+        description: 'ContasMgs model count',
+        content: {'application/json': {schema: CountSchema}},
+      },
+    },
+  })
+  @authenticate('jwt')
+  async minhasPartidasCount(
+    @inject(SecurityBindings.USER) currentUser: UserProfile,
+    @param.filter(ContasMgs, {exclude: 'where'}) filter?: FilterExcludingWhere<ContasMgs>,
+  ): Promise<Count> {
+    return this.partidasRepository.count({
+      where: {nick: currentUser.name},
+      order: ['id desc'],
+      limit: filter?.limit ?? 10,
+      offset: filter?.offset ?? 0,
+    }, filter);
   }
 }

@@ -25,11 +25,15 @@ export class BrzUserService implements UserService<ContasRpg, Credentials> {
     const contaMgs = await this.contasMgsRepository.findOne({where: {nome: credentials.nick}});
     const contaRpg = await this.contasRpgRepository.findOne({where: {nick: credentials.nick}});
 
-    console.log(credentials);
+    if (contaMgs && !contaRpg) {
+      throw new HttpErrors.NotFound(
+        `É necessário ter uma conta no RPG.`,
+      );
+    }
 
     if (!contaRpg) {
       throw new HttpErrors.NotFound(
-        `É necessário ter uma conta no RPG.`,
+        `Não existem contas com este nick.`,
       );
     }
 
@@ -46,14 +50,12 @@ export class BrzUserService implements UserService<ContasRpg, Credentials> {
 
     const passwordMatched = (contaRpg.senha === credentials.password);
 
-    if (!contaRpg) {
-      throw new HttpErrors.NotFound(
-        `User with nick ${credentials.nick} not found.`,
-      );
+    if (!passwordMatched) {
+      throw new HttpErrors.Unauthorized('As credenciais não estão corretas.');
     }
 
-    if (!passwordMatched) {
-      throw new HttpErrors.Unauthorized('The credentials are not correct.');
+    if (contaMgs?.banido === 1 && contaRpg?.banido === '1') {
+      throw new HttpErrors.Forbidden('Sua conta está banida.');
     }
 
     return contaRpg;
