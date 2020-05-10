@@ -4,6 +4,7 @@ import { RadioInfo, UcpComandos } from "../models";
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import * as IcecastMonitor from "icecast-monitor";
+import { parseCmd } from "../services";
 
 export async function radioMonitor(app: ApiApplication) {
   const ucpComandos = await app.getRepository(UcpComandosRepository);
@@ -94,10 +95,6 @@ export async function radioMonitor(app: ApiApplication) {
   //
   //   return null;
   // }
-}
-
-const parseCmd = (cmd: string) => {
-  return cmd.replace(/ /g, "|");
 }
 
 const sendCommand = (ucpComandos: UcpComandosRepository, cmd: string) => {
