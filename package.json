@@ -60,7 +60,7 @@
     "dotenv": "^8.2.0",
     "icecast-monitor": "^1.0.2",
     "icy": "^2.1.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "loopback-connector-mongodb": "^4.2.0",
     "loopback-connector-mysql": "^5.4.3",
     "tslib": "^1.10.0"
